@@ -1,7 +1,5 @@
 /* TokenVeil — Native-feeling Claude.ai overlay */
 
-/* ─── Theme variables that match claude.ai's data-mode ───────────────── */
-
 #tokenveil-panel {
   --tv-bg: #FAF9F5;
   --tv-bg-hover: #F2EFE6;
@@ -26,9 +24,13 @@
   right: 20px;
   z-index: 9999;
   user-select: none;
+
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
 }
 
-/* Dark mode — matches Claude's data-mode="dark" */
+/* Dark mode */
 html[data-mode="dark"] #tokenveil-panel,
 html.dark #tokenveil-panel {
   --tv-bg: #2A2825;
@@ -45,7 +47,45 @@ html.dark #tokenveil-panel {
   --tv-shadow: 0 4px 24px rgba(0, 0, 0, 0.35), 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
-/* ─── Collapsed pill ───────────────────────────────────────────────────── */
+/* ─── Cache pill (separate, only visible when active) ─────────────────── */
+
+.tv-cache-pill {
+  display: none;
+  align-items: center;
+  gap: 7px;
+  background: var(--tv-bg);
+  border: 1px solid var(--tv-border);
+  border-radius: 20px;
+  padding: 6px 12px 6px 11px;
+  box-shadow: var(--tv-shadow);
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--tv-text);
+}
+
+.tv-cache-pill.tv-cache-visible {
+  display: flex;
+  animation: tv-fade-in 0.22s ease;
+}
+
+.tv-cache-icon {
+  color: var(--tv-accent);
+  font-size: 9px;
+  animation: tv-pulse 2s ease-in-out infinite;
+}
+
+@keyframes tv-pulse {
+  0%, 100% { opacity: 0.6; }
+  50%      { opacity: 1; }
+}
+
+.tv-cache-text {
+  font-variant-numeric: tabular-nums;
+  color: var(--tv-text-muted);
+}
+
+/* ─── Main pill (collapsed state) ─────────────────────────────────────── */
 
 .tv-pill {
   display: flex;
@@ -78,8 +118,14 @@ html.dark #tokenveil-panel {
   box-shadow: 0 0 0 3px var(--tv-accent-soft);
 }
 
-.tv-pill-dot.tv-dot-warn { background: var(--tv-warn); box-shadow: 0 0 0 3px rgba(217, 146, 58, 0.2); }
-.tv-pill-dot.tv-dot-danger { background: var(--tv-danger); box-shadow: 0 0 0 3px rgba(197, 80, 59, 0.2); }
+.tv-pill-dot.tv-dot-warn {
+  background: var(--tv-warn);
+  box-shadow: 0 0 0 3px rgba(217, 146, 58, 0.2);
+}
+.tv-pill-dot.tv-dot-danger {
+  background: var(--tv-danger);
+  box-shadow: 0 0 0 3px rgba(197, 80, 59, 0.2);
+}
 
 .tv-pill-text {
   color: var(--tv-text);
@@ -87,7 +133,7 @@ html.dark #tokenveil-panel {
   letter-spacing: -0.01em;
 }
 
-/* ─── Expand / collapse state ─────────────────────────────────────────── */
+/* ─── Expand / collapse toggle ─────────────────────────────────────────── */
 
 .tv-collapsed .tv-expanded { display: none; }
 .tv-open .tv-pill { display: none; }
@@ -109,7 +155,6 @@ html.dark #tokenveil-panel {
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* Header */
 .tv-head {
   display: flex;
   justify-content: space-between;
@@ -141,14 +186,8 @@ html.dark #tokenveil-panel {
   background: var(--tv-track);
 }
 
-/* Stat block */
-.tv-stat {
-  margin-bottom: 12px;
-}
-
-.tv-stat:last-child {
-  margin-bottom: 0;
-}
+.tv-stat { margin-bottom: 12px; }
+.tv-stat:last-child { margin-bottom: 0; }
 
 .tv-stat-row {
   display: flex;
