@@ -1,0 +1,196 @@
+/* TokenVeil — Native-feeling Claude.ai overlay */
+
+/* ─── Theme variables that match claude.ai's data-mode ───────────────── */
+
+#tokenveil-panel {
+  --tv-bg: #FAF9F5;
+  --tv-bg-hover: #F2EFE6;
+  --tv-border: rgba(0, 0, 0, 0.08);
+  --tv-text: #1A1815;
+  --tv-text-muted: #8B8782;
+  --tv-text-soft: #B8B4AE;
+  --tv-accent: #CC785C;
+  --tv-accent-soft: rgba(204, 120, 92, 0.15);
+  --tv-track: rgba(0, 0, 0, 0.06);
+  --tv-warn: #D9923A;
+  --tv-danger: #C5503B;
+  --tv-shadow: 0 4px 24px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04);
+
+  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI",
+               "Inter", "Helvetica Neue", sans-serif;
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--tv-text);
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+  user-select: none;
+}
+
+/* Dark mode — matches Claude's data-mode="dark" */
+html[data-mode="dark"] #tokenveil-panel,
+html.dark #tokenveil-panel {
+  --tv-bg: #2A2825;
+  --tv-bg-hover: #34322F;
+  --tv-border: rgba(255, 255, 255, 0.08);
+  --tv-text: #E8E6E0;
+  --tv-text-muted: #918D86;
+  --tv-text-soft: #65615C;
+  --tv-accent: #D88B6F;
+  --tv-accent-soft: rgba(216, 139, 111, 0.18);
+  --tv-track: rgba(255, 255, 255, 0.06);
+  --tv-warn: #E0A35D;
+  --tv-danger: #D26B58;
+  --tv-shadow: 0 4px 24px rgba(0, 0, 0, 0.35), 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* ─── Collapsed pill ───────────────────────────────────────────────────── */
+
+.tv-pill {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--tv-bg);
+  border: 1px solid var(--tv-border);
+  border-radius: 20px;
+  padding: 6px 12px 6px 10px;
+  cursor: pointer;
+  box-shadow: var(--tv-shadow);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--tv-text);
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.tv-pill:hover {
+  background: var(--tv-bg-hover);
+  transform: translateY(-1px);
+}
+
+.tv-pill-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--tv-accent);
+  flex-shrink: 0;
+  box-shadow: 0 0 0 3px var(--tv-accent-soft);
+}
+
+.tv-pill-dot.tv-dot-warn { background: var(--tv-warn); box-shadow: 0 0 0 3px rgba(217, 146, 58, 0.2); }
+.tv-pill-dot.tv-dot-danger { background: var(--tv-danger); box-shadow: 0 0 0 3px rgba(197, 80, 59, 0.2); }
+
+.tv-pill-text {
+  color: var(--tv-text);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+
+/* ─── Expand / collapse state ─────────────────────────────────────────── */
+
+.tv-collapsed .tv-expanded { display: none; }
+.tv-open .tv-pill { display: none; }
+
+/* ─── Expanded panel ───────────────────────────────────────────────────── */
+
+.tv-expanded {
+  background: var(--tv-bg);
+  border: 1px solid var(--tv-border);
+  border-radius: 14px;
+  padding: 14px 16px;
+  width: 240px;
+  box-shadow: var(--tv-shadow);
+  animation: tv-fade-in 0.18s ease;
+}
+
+@keyframes tv-fade-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Header */
+.tv-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.tv-model {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--tv-text);
+  letter-spacing: -0.01em;
+}
+
+.tv-close {
+  background: none;
+  border: none;
+  color: var(--tv-text-muted);
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1;
+  padding: 0 4px;
+  border-radius: 4px;
+  transition: background 0.15s, color 0.15s;
+}
+
+.tv-close:hover {
+  color: var(--tv-text);
+  background: var(--tv-track);
+}
+
+/* Stat block */
+.tv-stat {
+  margin-bottom: 12px;
+}
+
+.tv-stat:last-child {
+  margin-bottom: 0;
+}
+
+.tv-stat-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 5px;
+}
+
+.tv-stat-label {
+  font-size: 11px;
+  color: var(--tv-text-muted);
+  font-weight: 500;
+}
+
+.tv-stat-value {
+  font-size: 12px;
+  color: var(--tv-text);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.tv-stat-sub {
+  font-size: 10px;
+  color: var(--tv-text-soft);
+  margin-top: 4px;
+}
+
+/* Progress bars */
+.tv-bar {
+  height: 4px;
+  background: var(--tv-track);
+  border-radius: 100px;
+  overflow: hidden;
+}
+
+.tv-bar-fill {
+  height: 100%;
+  background: var(--tv-accent);
+  border-radius: 100px;
+  width: 0%;
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s;
+}
+
+.tv-bar-fill.tv-bar-warn { background: var(--tv-warn); }
+.tv-bar-fill.tv-bar-danger { background: var(--tv-danger); }

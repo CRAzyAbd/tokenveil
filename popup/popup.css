@@ -1,0 +1,122 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #FAF9F5;
+  --bg-soft: #F2EFE6;
+  --border: rgba(0, 0, 0, 0.08);
+  --text: #1A1815;
+  --text-muted: #8B8782;
+  --text-soft: #B8B4AE;
+  --accent: #CC785C;
+  --accent-soft: rgba(204, 120, 92, 0.12);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #2A2825;
+    --bg-soft: #34322F;
+    --border: rgba(255, 255, 255, 0.08);
+    --text: #E8E6E0;
+    --text-muted: #918D86;
+    --text-soft: #65615C;
+    --accent: #D88B6F;
+    --accent-soft: rgba(216, 139, 111, 0.15);
+  }
+}
+
+body {
+  width: 260px;
+  font-family: ui-sans-serif, -apple-system, "Segoe UI", "Inter", sans-serif;
+  font-size: 12px;
+  color: var(--text);
+  background: var(--bg);
+}
+
+.pop-card { background: var(--bg); }
+
+.pop-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.pop-logo {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: -0.02em;
+}
+
+.pop-ver {
+  font-size: 10px;
+  color: var(--text-soft);
+}
+
+.pop-body { padding: 12px 14px; }
+
+.pop-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 0;
+}
+
+.pop-label {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.pop-val {
+  font-size: 11px;
+  color: var(--text);
+  font-weight: 500;
+}
+
+.pop-badge {
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 20px;
+}
+
+.pop-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 10px 0;
+}
+
+.pop-info {
+  font-size: 11px;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+
+.pop-btn {
+  display: block;
+  text-align: center;
+  background: var(--accent);
+  color: #fff;
+  padding: 8px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.pop-btn:hover { opacity: 0.9; }
+
+.pop-foot {
+  padding: 10px 14px;
+  font-size: 10px;
+  color: var(--text-soft);
+  text-align: center;
+  border-top: 1px solid var(--border);
+}
