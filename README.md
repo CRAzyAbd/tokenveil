@@ -34,14 +34,21 @@ It's there, but you don't feel it. Matches Claude's cream/coral palette in both 
 
 ## Install
 
+### Easy install (Chrome / Edge)
+
+1. Download [`tokenveil-1.0.1.zip`](https://github.com/CRAzyAbd/tokenveil/releases/latest/download/tokenveil-1.0.1.zip)
+2. Open `chrome://extensions` and enable **Developer mode** (top-right)
+3. Drag the ZIP onto the page
+
+### From source
+
 1. Clone this repo
 ```bash
    git clone https://github.com/CRAzyAbd/tokenveil.git
 ```
-2. Open `chrome://extensions`
-3. Enable **Developer mode** (top-right)
-4. Click **Load unpacked** and select the `tokenveil` folder
-5. Open claude.ai — pill appears in the bottom-right
+2. Open `chrome://extensions` → enable **Developer mode**
+3. Click **Load unpacked** and select the `tokenveil` folder
+4. Open claude.ai — pill appears in the bottom-right
 
 ## Project Structure
 
