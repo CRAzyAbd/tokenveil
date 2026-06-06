@@ -36,7 +36,7 @@ It's there, but you don't feel it. Matches Claude's cream/coral palette in both 
 
 1. Clone this repo
 ```bash
-   git clone https://github.com/YOUR_USERNAME/tokenveil.git
+   git clone https://github.com/CRAzyAbd/tokenveil.git
 ```
 2. Open `chrome://extensions`
 3. Enable **Developer mode** (top-right)
