@@ -84,6 +84,7 @@
             <span class="tv-stat-value" id="tv-ctx-value">0 / 200k</span>
           </div>
           <div class="tv-bar"><div class="tv-bar-fill" id="tv-ctx-bar"></div></div>
+          <div class="tv-stat-sub" id="tv-ctx-sub" style="display:none;"></div>
         </div>
 
         <div class="tv-stat">
@@ -148,9 +149,18 @@
       ModelDetector.getDisplayName(ModelDetector.getModel());
 
     // Context
-    document.getElementById("tv-ctx-value").textContent =
-      `${TokenCounter.formatTokenCount(conversationTokens)} / 200k`;
-    setBar("tv-ctx-bar", ctxPercent);
+    const isCompacting = conversationTokens > TokenCounter.CONTEXT_LIMIT;
+    const ctxValueEl = document.getElementById("tv-ctx-value");
+    const ctxSubEl = document.getElementById("tv-ctx-sub");
+    if (isCompacting) {
+      ctxValueEl.textContent = `${TokenCounter.formatTokenCount(conversationTokens)} raw`;
+      ctxSubEl.textContent = `active ~200k · compacted`;
+      ctxSubEl.style.display = "block";
+    } else {
+      ctxValueEl.textContent = `${TokenCounter.formatTokenCount(conversationTokens)} / 200k`;
+      ctxSubEl.style.display = "none";
+    }
+    setBar("tv-ctx-bar", Math.min(ctxPercent, 100));
 
     // Session + Weekly
     const usage = await UsageTracker.getUsage();
