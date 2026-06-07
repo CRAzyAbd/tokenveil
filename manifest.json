@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "TokenVeil",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A native-feeling Claude.ai overlay showing tokens, context, cache timer, and usage — blends seamlessly into the UI.",
   "icons": {
     "16": "icons/icon16.png",
