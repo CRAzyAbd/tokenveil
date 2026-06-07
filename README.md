@@ -36,7 +36,7 @@ It's there, but you don't feel it. Matches Claude's cream/coral palette in both 
 
 ### Easy install (Chrome / Edge)
 
-1. Download [`tokenveil-1.0.1.zip`](https://github.com/CRAzyAbd/tokenveil/releases/latest/download/tokenveil-1.0.1.zip)
+1. Download [`tokenveil-1.0.2.zip`](https://github.com/CRAzyAbd/tokenveil/releases/latest/download/tokenveil-1.0.2.zip)
 2. Open `chrome://extensions` and enable **Developer mode** (top-right)
 3. Drag the ZIP onto the page
 
