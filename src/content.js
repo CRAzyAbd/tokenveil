@@ -7,6 +7,7 @@
 
   let conversationTokens = 0;
   let isExpanded = false;
+  let lastUsage = null;
 
   // ─── HOOK FETCH IMMEDIATELY ────────────────────────────────────────────
   const _fetch = window.fetch;
@@ -134,13 +135,19 @@
       cachePill.classList.remove("tv-cache-visible");
     }
 
-    // Pill % + dot color
-    const ctxPercent = TokenCounter.getUsagePercent(conversationTokens);
-    document.getElementById("tv-pill-text").textContent = `${ctxPercent.toFixed(0)}%`;
+    // Fetch usage always (needed for the pill)
+    lastUsage = await UsageTracker.getUsage();
+
+    // Pill shows SESSION % (5-hour usage)
+    const sessionPercent = lastUsage?.session.percent ?? 0;
+    document.getElementById("tv-pill-text").textContent = `${sessionPercent.toFixed(0)}%`;
     const pillDot = panel.querySelector(".tv-pill-dot");
     pillDot.classList.remove("tv-dot-warn", "tv-dot-danger");
-    if (ctxPercent >= 90) pillDot.classList.add("tv-dot-danger");
-    else if (ctxPercent >= 70) pillDot.classList.add("tv-dot-warn");
+    if (sessionPercent >= 90) pillDot.classList.add("tv-dot-danger");
+    else if (sessionPercent >= 70) pillDot.classList.add("tv-dot-warn");
+
+    // Context % is still needed for the expanded view (kept for reference below)
+    const ctxPercent = TokenCounter.getUsagePercent(conversationTokens);
 
     if (!isExpanded) return;
 
@@ -162,10 +169,9 @@
     }
     setBar("tv-ctx-bar", Math.min(ctxPercent, 100));
 
-    // Session + Weekly
-    const usage = await UsageTracker.getUsage();
-    if (usage) {
-      const { session, weekly } = usage;
+    // Session + Weekly (use cached lastUsage from above)
+    if (lastUsage) {
+      const { session, weekly } = lastUsage;
       document.getElementById("tv-ses-value").textContent = `${session.percent.toFixed(0)}%`;
       document.getElementById("tv-ses-reset").textContent = `resets in ${session.timeLeft}`;
       setBar("tv-ses-bar", session.percent);
